@@ -7,7 +7,9 @@
 #define MAX_NUM_LEN	9	/* Maximum length of a number, set to 9 to fit in range of C (-2147483648 to 2147483647) */
 #define MAX_ID_LEN	10	/* Maximum length of an identifier */
 
-struct _tPL0Compiler;
+struct _tPL0Compiler;	
+
+FILE *example, *result; //store the test file and output file
 
 typedef enum _tPL0TokenType {
 	TOKEN_NULL,
@@ -50,19 +52,23 @@ extern const char * TOKEN_SYMBOLS[NSYM];
 typedef struct _tPL0Lex {
 	/* Parent return pointer */
 	struct _tPL0Compiler * compiler;
+	
 	/* For output */
 	PL0TokenType last_token_type;
 	char last_id[MAX_ID_LEN + 1];
 	int last_num;
 
-	int last_level;
-
 	/** --------------------------
 	 * TODO: Your variables here
 	 */
+	char newchar;	//read char from file
+	int line;		//line number 
+	int row;		
+	int position;	
+
 } PL0Lex;
 
-PL0Lex * PL0Lex_create(struct _tPL0Compiler * parent);
+PL0Lex * PL0Lex_create(struct _tPL0Compiler * parent);	
 BOOL PL0Lex_destroy(PL0Lex * lex);
 
 BOOL PL0Lex_get_token(PL0Lex * lex);

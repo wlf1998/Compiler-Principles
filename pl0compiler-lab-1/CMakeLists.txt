@@ -7,7 +7,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 add_subdirectory(lex)
 add_subdirectory(common)
-add_subdirectory(syntax)
 
 add_executable(test test.c)
-target_link_libraries(test lex common tax)
+target_link_libraries(test lex common)

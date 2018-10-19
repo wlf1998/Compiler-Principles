@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <ctype.h>
 #include "common/common.h"
 #include "lex/pl0_lex.h"
 
@@ -12,7 +13,7 @@ void show_help(const char * arg0)
 int main(int argc, char * argv[])
 {
 	/* Parse arguments */
-	if (argc != 2)
+/*	if (argc != 2)
 	{
 		show_help(argv[0]);
 		exit(-1);
@@ -23,9 +24,15 @@ int main(int argc, char * argv[])
 		printf("Fatal: Cannot open file for reading: %s\n", argv[1]);
 		exit(-1);
 	}
-
+*/
 	/* Start */
 	printf("=== This is the program for PL/0 testing ===\n");
+	printf("Please choose file that you need:\n");
+	char *testfile;
+	scanf("%s",testfile);
+	example = fopen(testfile,"rb+");
+//	example = fopen("/home/lifeng/gitlab/Lab_1/pl0compiler-lab-1/examples/example.txt","rb+");
+//	result = fopen("/home/lifeng/gitlab/Lab_1/pl0compiler-lab-1/examples/result.txt","wb+");
 
 	/* Setup */
 	compiler = PL0Compiler_create();
@@ -35,7 +42,7 @@ int main(int argc, char * argv[])
 	PL0Lex * lex = compiler->lex;
 	while (PL0Lex_get_token(lex))
 	{
-		assert(lex->last_token_type != TOKEN_NULL);
+/*		assert(lex->last_token_type != TOKEN_NULL);
 		assert(lex->last_token_type != TOKEN_RESWORDS);
 		assert(lex->last_token_type != TOKEN_SYMBOL);
 		if (lex->last_token_type == TOKEN_IDENTIFIER)
@@ -54,18 +61,18 @@ int main(int argc, char * argv[])
 		{
 			printf("Symbol: %s\n", TOKEN_SYMBOLS[lex->last_token_type - TOKEN_SYMBOL - 1]);
 		}
+*/
+		LEX(lex);
 	}
 
 	printf("--- Lexical Analysis testing end. ---\n");
 
-	/*test syntax ayalysis*/
-	PL0Lex_get_token(lex);
-	program_block(lex);
-
 	/* Cleanup */
-	fclose(fin);
-
+//	fclose(fin);
+	fclose(example);
+//	fclose(result);
 	/* Finish */
 	printf("=== Normal end for testing. ===\n");
+//	getchar();
 	return 0;
 }
