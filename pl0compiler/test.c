@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "common/common.h"
 #include "lex/pl0_lex.h"
+#include "error/pl0_error.h"
 
 void show_help(const char * arg0)
 {
